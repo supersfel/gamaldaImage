@@ -1,9 +1,11 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import "dotenv/config";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
+const url = process.env.URL;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -21,7 +23,7 @@ const upload = multer({ storage });
 
 app.post("/upload", upload.single("image"), (req, res) => {
   // 업로드된 이미지의 URL 생성
-  const imageUrl = `http://localhost:${port}/images/${req.file.filename}`;
+  const imageUrl = `${url}:${port}/images/${req.file.filename}`;
 
   // 이미지 URL과 함께 응답 전송
   res.json({ message: "이미지 업로드 완료", imageUrl: imageUrl });
@@ -30,5 +32,5 @@ app.post("/upload", upload.single("image"), (req, res) => {
 app.use("/images", express.static("images"));
 
 app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
+  console.log(`서버가 ${url}:${port} 에서 실행 중입니다.`);
 });
