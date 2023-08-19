@@ -1,11 +1,14 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import cors from "cors"; // cors 패키지를 가져옵니다.
 import "dotenv/config";
 
 const app = express();
 const port = process.env.PORT;
 const url = process.env.URL;
+
+app.use(cors());
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
