@@ -18,7 +18,7 @@ let corsOptions = {
   credentials: true,
 };
 
-app.use(cors());
+app.use(cors({ allowedHeaders: ["Authorization", "Content-Type"] }));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
