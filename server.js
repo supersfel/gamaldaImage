@@ -36,6 +36,8 @@ const upload = multer({ storage });
 
 app.post("/upload", upload.single("image"), (req, res) => {
   // 업로드된 이미지의 URL 생성
+
+  console.log(req.file);
   const imageUrl = `${url}:${port}/images/${req.file.filename}`;
 
   // 이미지 URL과 함께 응답 전송
